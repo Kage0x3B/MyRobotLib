@@ -1,4 +1,5 @@
 MyRobotLib is a Java library (and Im planning a gui for controlling the robot) for controlling the "MyRobot V7.0" with Java or Javascript code.
+It uses the HTMLUnit library for reading values from the edit page for example and Lombok which makes Getters/Setters look much cleaner.
 
 Java example:
 
