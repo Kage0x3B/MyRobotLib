@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="viewport" content="width=device-width, user-scalable=no" />
+		<script>
+			ajax = new XMLHttpRequest();
+			edit=false;
+			
+			function call(str) {
+				ajax.abort();
+				ajax.open("GET", "/ajax?id="+str+"&rand="+Math.random(), true);
+				ajax.send();
+			} 
+			
+			function status_check() {
+				if ((ajax.readyState==4) && (ajax.status==200)) {
+					eval(ajax.responseText.trim());
+				}
+			} 
+			function btn(id) {
+				if (edit) {
+					location.href="/edit?id="+id;
+				} else {
+					call(id);
+				}
+			} 
+			
+			ajax.onreadystatechange = status_check; 
+		</script>
+		<title>myRobot</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: black;
+				color: white;
+				font-family: Helvetica, Arial;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				font-size: 2.5vh;
+			}
+			
+			button {
+				width: 31.5vw;
+				height: 10vh;
+				background: black;
+				color: white;
+				float: left;
+				border: 0px;
+				margin: 0.5vh;
+				font-size: 3vh;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<form action="/" method="post">
+			<input type="hidden" name="action" value="edit">
+			ID:<input type="text" name="id" value="24">
+			Text:<input style="width: 100%;" type="text" name="text" value="servo3">
+			Farbe:<input style="width: 100%;" type="text" name="color" value="gray">
+			Wiederholungen: <input style="width: 100%;" type="text" name="repeat" value="1">
+			Programm:
+			<textarea style="width: 100%; height: 300px" name="content">
+				Servo 3 180
+				Schlafe 2
+				Servo 3 1
+			</textarea>
+			<input style="width: 32%; height: 50px" type="button"
+				onClick="location.href='/'" value="Zurück"> <input
+				style="width: 32%; height: 50px" type="submit" value="Löschen">
+			<input style="width: 32%; height: 50px" type="submit"
+				value="Speichern">
+		</form>
+	</body>
+</html>
